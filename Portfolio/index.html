@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>💚Vanshaj Personal site</title><!-- emoji can also be printed -->
+    <link rel="stylesheet" href="css/styles.css"> <!--link is used for style sheet i.e the css-->
+    <!-- down is internal css between the style tag-->
+    <!-- <style>
+        body{
+            background-color: #E3FDFD;
+        }
+        hr{
+            border-color: grey;
+            /*border-style: none; removes the border as no default style is used*/
+            /* height: 2px;height of border 2 pixel */
+            
+            border-style: none;
+            border-top-style: dotted;
+            /*
+            border-style: dotted none none; same as abv*/
+            /*none is added 2 times as then border will show the dots 4 sides */
+            border-width: 5px;
+            width: 5%;/*this means 10% of the entire width of the page*/
+        }
+    </style> -->
+    <!-- both have same effect the style inside body and in curly brace -->
+</head>
+<!-- style is css -->
+
+<body> <!-- it can be written inside <body style="background-color: #E3FDFD;" > works same as body{}-->
+    <!-- cellspacing gives space between two rows but u need to use css -->
+    <table cellspacing="20">
+        <tr>
+            <!-- if browser unable to render pic it displays the statement in alt -->
+            <td><img src="mypic.png" alt="Vanshaj profile pic"></td>
+            <td>
+                <h1> Vanshaj Barnwal </h1>
+
+                <p><em>A computer enthusiast with <strong>academic project</strong></em>
+                </p>
+                <p><em>Department of <strong><a
+                                href="https://www.srmist.edu.in/department/department-of-networking-and-communications/">NWC</a>.</strong></em>
+                </p>
+                <!-- href is url link it can be mapped into andy word or sentence specified before closing tag of a </a> -->
+                <p>I am a student at <a href="https://www.srmist.edu.in/">SRM university</a>. I have experiences in
+                    programming,
+                    machine learning, and data analysis </p>
+                <p>
+                    looking to acquire
+                    knowledge and skills through a short-term internship role as tech intern.
+                </p>
+
+            </td>
+        </tr>
+    </table>
+    <!-- always use <em> in place of <i>
+    i has the purpose of presenting something in italicised style.
+    also <i> for icons
+    em has the purpose of giving emphasis to the content.
+    so presentation is used in css so <i> is excluded though both show same o/p
+    always use <strong> in place of <b> -->
+
+    <hr><!-- size="3" noshade is written inaside hr -->
+    <h3>EDUCATION</h3>
+    <ul>
+        <!-- ul is unordered list for bulletin
+        every list is followed by li -->
+        <li>School: Calcutta Public School</li>
+        <li>B.Tech: SRM Institute of Science and Technology</li>
+    </ul>
+    <hr>
+    <h3>Personal Projects</h3>
+    <table border="1" cellspacing="5">
+        <!-- border gives the outline but it 
+    gives ugly outline so we use css -->
+        <!-- th table header -->
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Project</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>12/2021</td>
+                <td>Student Registration Form</td>
+            </tr>
+            <tr>
+                <td>01/2022</td>
+                <td>Garage Rental Form</td>
+            </tr>
+            <tr>
+                <td>04/2022</td>
+                <td>Password Generator</td>
+            </tr>
+        </tbody>
+        <tfoot></tfoot>
+        <!-- table tr is for table row td is for table data-->
+    </table>
+    <hr>
+    <h3>Skills</h3>
+    <table cellspacing="5">
+        <tr>
+            <td>Python</td>
+            <td>⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+            <td>C</td>
+            <td>⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+            <td>C++</td>
+            <td>⭐⭐⭐</td>
+        </tr>
+        <tr>
+            <td>Web Dev</td>
+            <td>⭐⭐</td>
+        </tr>
+        <tr>
+            <td>App Dev(Flutter)</td>
+            <td>⭐⭐⭐</td>
+        </tr>
+    </table>
+    <hr>
+    <a href="hobbies.html">My Hobbies</a>
+    <a href="Contact.html">My Contact</a>
+</body>
+
+</html>

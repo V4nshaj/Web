@@ -1,0 +1,39 @@
+/******************** tag selectors ********************/
+h1 {
+    color: red;
+    font-size: 100px;
+}
+
+img:hover {
+    /*colon then hower means when the cursor does it changes the color to gold*/
+    background-color: gold;
+}
+
+/*diff b/w id and class:
+id can have one
+but class can be named many a times 
+
+in class we can apply 2 class
+but we cannot apply that in id
+*/
+/******************** class selectors ********************/
+
+/*class selectors overides tag selectors*/
+.bacon {
+    /*class is used instead of tag with a dot */
+    background-color: green;
+}
+
+.broccoli {
+    background-color: red;
+}
+
+.circular {
+    border-radius: 100%;
+}
+
+/******************** id selectors ********************/
+/*id selectors overides tag selectors*/
+#heading {
+    color: blue;
+}

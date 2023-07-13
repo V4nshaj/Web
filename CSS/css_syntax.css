@@ -1,0 +1,16 @@
+/* 
+css syntax:
+    selector{property:value;}
+
+
+    inside {} curly braces rules are resided,
+    here the rules will change certain properties, 
+    It gives a new value to the property 
+    Each rule ends with semi-colomn
+
+    Selector: means whos property do you want to change? eg para tag, img tag,etc.
+    property: what do you wana change eg bgclr, textclr.
+    value: means how do we wana change the value
+
+*/
+h1{color:red}/*h1: selector, color:property, red: value*/

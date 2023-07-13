@@ -1,0 +1,177 @@
+body {
+    margin: 0;
+    text-align: center;
+    /* font-family: serif; =>default*/
+    font-family: 'Merriweather', serif;
+    /*before the comma is the font style under sanserif if that is not installed or not working san serif or the other one will take in next place*/
+    /* font-size: 200%; */
+}
+
+hr {
+    margin: 100px auto;
+    border-color: grey;
+    border-style: dotted none none;
+    border-width: 7px;
+    width: 5%;
+}
+
+h1 {
+    margin: 50px auto 0 auto;
+    font-family: 'Sacramento', cursive;
+    font-size: 5.265rem;
+    /* font-size: 100% is same as 16px to get 90px in % div 90/16*100 = 562.5% will give same size for the font */
+    /* 1em is isize of letter M , 1em is 16 pixel 90px = 5.625 */
+    /* font-size: 5.625rem; helps in changing the property of the parent body font size*/
+    /* width: 10%;
+    margin: 0 auto; 
+    top/bottom left/right or top left bottom right */
+    color: #66BFBF;
+    /* line-height: 2; */
+}
+
+h2 {
+    color: #66BFBF;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    font-weight: normal;
+}
+
+h3 {
+    color: #11999E;
+    font-family: 'Montserrat', sans-serif;
+}
+
+a {
+    color: #11999E;
+}
+
+.top_container {
+    position: relative;
+    /*to position something relative in child we use position:relative in parent*/
+    padding-top: 100px;
+    /*adding paddding top will push the content little down*/
+    background-color: #E4F9F5;
+}
+
+.middle-container {
+    /* background-color: red; */
+}
+
+.bottom-container {
+    margin-top: 50px;
+    padding: 45px 0 20px;
+    font-weight: 600;
+    background-color: #66BFBF;
+    /* background-color: yellow; */
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+
+    /* height: 200px;
+    width: 200px; */
+}
+
+.intro {
+    width: 20%;
+    margin: auto;
+}
+
+p {
+    line-height: 2;
+}
+
+.pro {
+    text-decoration: underline;
+}
+
+.top-cloud {
+    position: absolute;
+    right: 400px;
+    top: 50px;
+}
+
+.bottom-cloud {
+    position: absolute;
+    left: 400px;
+    bottom: 300px;
+}
+
+.skill-row {
+    margin: 100px auto 100px auto;
+    line-height: 2rem;
+    text-align: left;
+    /*center all the obj*/
+    width: 50%;
+
+}
+
+.skill-img {
+    float: left;
+    /* helps to align the text beside the img*/
+    margin-right: 30px;
+    width: 25%;
+}
+
+.chilli-img {
+    float: right;
+    /* helps to align the text beside the img*/
+    margin-right: 30px;
+    width: 25%;
+}
+
+.skill-desc {
+    clear: left;
+}
+
+.chilli-desc {
+    clear: right;
+}
+
+.footer-link {
+    color: #11999E;
+    display: inline-block;
+    /*these two gives space b/w words */
+    margin-left: 40px;
+}
+
+.footer-para {
+    color: #EAF6F6;
+    font-size: small;
+    padding-top: 20px;
+}
+
+.contact-para {
+    width: 30%;
+    margin: 40px auto 60px;
+}
+
+.btn {
+    background: #66BFBF;
+    background-image: -webkit-linear-gradient(top, #66BFBF, #66BFBF);
+    background-image: -moz-linear-gradient(top, #66BFBF, #66BFBF);
+    background-image: -ms-linear-gradient(top, #66BFBF, #66BFBF);
+    background-image: -o-linear-gradient(top, #66BFBF, #66BFBF);
+    background-image: linear-gradient(to bottom, #66BFBF, #66BFBF);
+    -webkit-border-radius: 8;
+    -moz-border-radius: 8;
+    border-radius: 8px;
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background: #3cb0fd;
+    background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+    background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+    text-decoration: none;
+}

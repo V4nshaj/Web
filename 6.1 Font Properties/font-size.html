@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Font-Size</title>
+  <style>
+    #pixel {
+      font-size: 20px;
+    }
+
+    #point {
+      font-size: 20pt;
+    }
+
+    /* 2em means twice the parent size is 20px then 2em child size = 2*20px */
+    #em {
+      font-size: 1em;
+    }
+
+    /* 2rem means twice the root size (html tag as it roots all) is 30px then 2rem size = 2*30px the parent size does not affect */
+    #rem {
+      font-size: 1rem;
+    }
+
+    footer {
+      font-size: 12pt;
+    }
+
+    html {
+      font-size: xx-large;
+    }
+  </style>
+</head>
+<html lang="en">
+
+<body>
+  <p id="pixel">1 Pixel is 1/96 of an Inch</p>
+  <p id="point">1 Point is 1/72 of an Inch</p>
+  <footer>
+    <p id="em">1em is 100% the size of the parent element</p>
+    <p id="rem">1rem is 100% the size of the root element</p>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+/* 
+postion: relative=> mean adding margin relative to where the element shld have been 
+position: absolut=> means adding margin to parent element
+*/
+
+body {
+    margin: 0;
+}
+
+.top {
+    background-color: red;
+    top: 400px;
+    left: 400px;
+}
+
+.middle {
+    background-color: blue;
+    left: 200px;
+    top: 200px;
+
+}
+
+.bottom {
+    background-color: yellow;
+}
+
+
+.container {
+    /* display: inline-block; */
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    /* position: relative; */
+}

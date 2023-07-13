@@ -1,0 +1,23 @@
+body{
+    background-color: #E3FDFD;
+}
+hr{
+    border-color: grey;
+    /*border-style: none; removes the border as no default style is used*/
+    /* height: 2px;height of border 2 pixel */
+    
+    border-style: none;
+    border-top-style: dotted;
+    /*
+    border-style: dotted none none; same as abv*/
+    /*none is added 2 times as then border will show the dots 4 sides */
+    border-width: 5px;
+    width: 5%;/*this means 10% of the entire width of the page*/
+}
+h1{
+    color: #668fbf;
+}
+
+h3{
+    color: #668fbf;
+}
