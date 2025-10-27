@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSFloat Sniping Bot Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a2e;
+            color: #e4e4e7
+        }
+
+        .card {
+            background-color: #2c2c44;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .5)
+        }
+
+        .header {
+            background-color: #1f4068
+        }
+
+        .log-container {
+            max-height: 400px;
+            overflow-y: auto;
+            scrollbar-color: #3b82f6 #2c2c44;
+            scrollbar-width: thin
+        }
+
+        .snipe-item {
+            background-color: #3b3b5c
+        }
+
+        .snipe-item.autobuy {
+            animation: pulse-border 1s infinite;
+            border: 2px solid #ef4444
+        }
+
+        @keyframes pulse-border {
+            0% {
+                border-color: #ef4444
+            }
+
+            50% {
+                border-color: #f87171
+            }
+
+            100% {
+                border-color: #ef4444
+            }
+        }
+
+        .toggle-switch input {
+            position: absolute;
+            opacity: 0
+        }
+
+        .toggle-switch label {
+            cursor: pointer;
+            text-indent: -9999px;
+            width: 50px;
+            height: 25px;
+            background: #4a5568;
+            display: block;
+            border-radius: 100px;
+            position: relative
+        }
+
+        .toggle-switch label:after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 21px;
+            height: 21px;
+            background: #e2e8f0;
+            border-radius: 90px;
+            transition: .3s
+        }
+
+        .toggle-switch input:checked+label {
+            background: #10b981
+        }
+
+        .toggle-switch input:checked+label:after {
+            left: calc(100% - 2px);
+            transform: translateX(-100%)
+        }
+
+        input[type=number]:disabled {
+            cursor: not-allowed;
+            opacity: .5
+        }
+    </style>
+</head>
+
+<body class="min-h-screen p-4 sm:p-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="header p-6 rounded-t-xl mb-4">
+            <h1 class="text-3xl font-extrabold text-white">CSFloat Sniping Bot Simulator</h1>
+            <p class="text-sm text-gray-300 mt-1">Live fetch from CSFloat most recent listings every 15s with filters
+                &amp; auto-buy simulation.</p>
+        </header>
+
+        <div class="card p-6 rounded-xl space-y-6">
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">CSFloat API Key</label>
+                    <input type="text" id="apiKey" placeholder="Enter your API Key (optional)"
+                        class="w-full p-2.5 rounded-lg bg-gray-600 border border-gray-500 text-white focus:ring-blue-500 focus:border-blue-500 transition duration-150">
+                    <p class="text-xs text-yellow-400 mt-1">Optional — requests are public anyway.</p>
+                </div>
+                <div>
+                    <label for="discountFilter" class="block text-sm font-medium text-gray-400 mb-1">Min Discount Filter
+                        (%)</label>
+                    <input type="number" id="discountFilter" value="20" min="1" max="99"
+                        class="w-full p-2.5 rounded-lg bg-gray-600 border border-gray-500 text-white">
+                    <p class="text-xs text-gray-400 mt-1">Only show items discounted ≥ this value.</p>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 pt-4 border-t border-gray-700">
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Min Price (USD)</label>
+                    <input type="number" id="minPriceFilter" value="10.00" min="0" step="0.01"
+                        class="w-full p-2.5 rounded-lg bg-gray-600 border border-gray-500 text-white">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-400 mb-1">Max Price (USD)</label>
+                    <input type="number" id="maxPriceFilter" value="5000.00" min="0" step="0.01"
+                        class="w-full p-2.5 rounded-lg bg-gray-600 border border-gray-500 text-white">
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-1 gap-4 pt-4 border-t border-gray-700">
+                <div class="flex flex-col">
+                    <div class="flex items-center space-x-3 h-[42px]">
+                        <div class="toggle-switch"><input type="checkbox" id="floatCapToggle"><label
+                                for="floatCapToggle"></label></div>
+                        <span id="floatCapStatus" class="text-lg font-semibold text-gray-300">Float Cap: <span
+                                class="text-gray-500">OFF</span></span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-2">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-1">Min Float</label>
+                            <input type="number" id="minFloatFilter" value="0.00000000" step="0.00000001" min="0"
+                                max="1" class="w-full p-2.5 rounded-lg bg-gray-600 border border-gray-500 text-white"
+                                disabled>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-1">Max Float</label>
+                            <input type="number" id="maxFloatFilter" value="0.07000000" step="0.00000001" min="0"
+                                max="1" class="w-full p-2.5 rounded-lg bg-gray-600 border border-gray-500 text-white"
+                                disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between pt-4 border-t border-gray-700">
+                <div class="flex items-center space-x-3 mb-4 sm:mb-0">
+                    <div class="toggle-switch"><input type="checkbox" id="autoBuyToggle"><label
+                            for="autoBuyToggle"></label></div>
+                    <span id="autoBuyStatus" class="text-lg font-semibold text-gray-300">Auto-Buy: <span
+                            class="text-red-500">OFF</span></span>
+                </div>
+                <div class="flex space-x-4 w-full sm:w-auto">
+                    <button id="togglePolling"
+                        class="w-full sm:w-auto px-6 py-2.5 rounded-lg font-bold bg-green-600 hover:bg-green-700 text-white">Start
+                        Polling (15s)</button>
+                    <button id="clearLog"
+                        class="w-full sm:w-auto px-6 py-2.5 rounded-lg font-bold bg-gray-500 hover:bg-gray-600 text-white">Clear
+                        Log</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold mb-3 text-white">Snipe Detection Log</h2>
+            <div id="logContainer" class="log-container card p-4 rounded-xl space-y-2">
+                <p id="initialMessage" class="text-gray-400 text-sm italic">Log is empty. Click “Start Polling” to
+                    begin.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CORRECTED JAVASCRIPT START ---
+
+        // CORS Fix: Use a public proxy to bypass CORS policy block when running locally.
+
+        const API_URL = "https://csfloat.com/api/v1/listings?sort_by=most_recent&limit=50";
+
+        const logContainer = document.getElementById("logContainer");
+        const togglePollingBtn = document.getElementById("togglePolling");
+        const clearLogBtn = document.getElementById("clearLog");
+        const floatCapToggle = document.getElementById("floatCapToggle");
+        const autoBuyToggle = document.getElementById("autoBuyToggle");
+        let pollingInterval = null;
+
+        function appendLog(msg, color = "text-gray-300", highlight = false) {
+            const e = document.createElement("div");
+            e.className = `p-2 rounded-lg text-sm ${color} ${highlight ? 'snipe-item autobuy' : ''}`;
+            e.textContent = msg;
+            document.getElementById("initialMessage")?.remove();
+            logContainer.prepend(e);
+            // Limit log size to prevent performance issues
+            while (logContainer.children.length > 60) logContainer.lastChild.remove();
+        }
+
+        async function fetchListings() {
+            const discount = parseFloat(document.getElementById("discountFilter").value) || 20;
+            // Prices in the API response are in cents, so we convert the USD filter values to cents
+            const minPrice = parseFloat(document.getElementById("minPriceFilter").value) * 100;
+            const maxPrice = parseFloat(document.getElementById("maxPriceFilter").value) * 100;
+            const floatEnabled = floatCapToggle.checked;
+            const minFloat = parseFloat(document.getElementById("minFloatFilter").value) || 0;
+            const maxFloat = parseFloat(document.getElementById("maxFloatFilter").value) || 1;
+
+            try {
+                const res = await fetch(API_URL);
+
+                if (!res.ok) throw new Error(res.status + " " + res.statusText);
+
+                const data = await res.json();
+
+                // IMPORTANT: Listings are correctly accessed under the 'data' key as seen in the API response.
+                let listings = data.data || [];
+
+                appendLog(`[${new Date().toLocaleTimeString()}] Fetched ${listings.length} total items.`, "text-gray-500");
+
+                // Filter 1: Only Buy Now listings in an active 'listed' state
+                listings = listings.filter(l => l.type === "buy_now" && l.state === "listed");
+
+                // Filter 2: Price range filter (already converted to cents)
+                listings = listings.filter(l => l.price >= minPrice && l.price <= maxPrice);
+
+                // Filter 3: Float Cap filter
+                if (floatEnabled) {
+                    listings = listings.filter(l => {
+                        const floatVal = l.item?.float_value;
+                        // Only include items with a float value within the specified range
+                        return floatVal !== undefined && floatVal >= minFloat && floatVal <= maxFloat;
+                    });
+                }
+
+                let snipeCount = 0;
+                for (const l of listings) {
+                    // Use the more reliable reference price (predicted_price) or SCM price.
+                    const scm = l.reference?.predicted_price || l.item?.scm?.price || 0;
+
+                    if (!scm || scm === 0 || l.price >= scm) continue; // Skip if no SCM data or price isn't a discount
+
+                    // Calculate discount percentage: (1 - ListingPrice / SCMPrice) * 100
+                    const disc = (1 - l.price / scm) * 100;
+
+                    if (disc >= discount) {
+                        snipeCount++;
+                        const msg = `${l.item?.market_hash_name || 'Item'} | Buy $${(l.price / 100).toFixed(2)} | SCM $${(scm / 100).toFixed(2)} | ${disc.toFixed(1)}% off | Float ${l.item?.float_value?.toFixed(8) || 'N/A'}`;
+
+                        if (autoBuyToggle.checked) {
+                            appendLog(`✅ SNIPE DETECTED & AUTO-BUY SIMULATED: ${msg}`, "text-red-400", true);
+                        } else {
+                            appendLog(`⭐ SNIPE DETECTED: ${msg}`, "text-yellow-400");
+                        }
+                    }
+                }
+                if (snipeCount === 0) {
+                    appendLog(`[${new Date().toLocaleTimeString()}] No snipes found in the latest fetch.`, "text-gray-500");
+                }
+
+
+            } catch (err) {
+                appendLog("Fetch error: " + err.message, "text-red-500");
+                console.error("Fetch error:", err);
+            }
+        }
+
+        function startPolling() {
+            if (pollingInterval) return;
+            pollingInterval = setInterval(fetchListings, 15000);
+            togglePollingBtn.textContent = "Stop Polling";
+            togglePollingBtn.classList.replace("bg-green-600", "bg-red-600");
+            appendLog("Started polling every 15s...", "text-blue-400");
+            fetchListings(); // Fetch immediately on start
+        }
+
+        function stopPolling() {
+            clearInterval(pollingInterval);
+            pollingInterval = null;
+            togglePollingBtn.textContent = "Start Polling (15s)";
+            togglePollingBtn.classList.replace("bg-red-600", "bg-green-600");
+            appendLog("Polling stopped.", "text-blue-400");
+        }
+
+        togglePollingBtn.onclick = () => pollingInterval ? stopPolling() : startPolling();
+        clearLogBtn.onclick = () => { logContainer.innerHTML = '<p id="initialMessage" class="text-gray-400 text-sm italic">Log cleared. Click “Start Polling”.</p>'; };
+
+        autoBuyToggle.onchange = () => {
+            document.getElementById("autoBuyStatus").innerHTML = `Auto-Buy: <span class="${autoBuyToggle.checked ? 'text-red-500' : 'text-green-500'}">${autoBuyToggle.checked ? 'ON (DANGER!)' : 'OFF'}</span>`;
+            autoBuyToggle.checked ? appendLog("Auto-Buy ON (simulation).", "text-red-500") : appendLog("Auto-Buy OFF.", "text-green-500");
+        };
+
+        floatCapToggle.onchange = () => {
+            const on = floatCapToggle.checked;
+            document.getElementById("minFloatFilter").disabled = !on;
+            document.getElementById("maxFloatFilter").disabled = !on;
+            document.getElementById("floatCapStatus").innerHTML = `Float Cap: <span class="${on ? 'text-green-500' : 'text-gray-500'}">${on ? 'ON' : 'OFF'}</span>`;
+            appendLog(`Float Cap ${on ? 'enabled' : 'disabled'}.`, "text-gray-400");
+        };
+
+        // Trigger initial state update for toggles
+        autoBuyToggle.onchange();
+        floatCapToggle.onchange();
+
+        // --- CORRECTED JAVASCRIPT END ---
+    </script>
+</body>
+
+</html>
